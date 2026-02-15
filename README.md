@@ -17,19 +17,45 @@
 
 ---
 
-## 🎯 Overview
+## 😤 The Problem
 
-**AccountVault** is a secure, privacy-focused mobile application designed to help developers and students manage multiple online accounts efficiently.
+> *"Which email did I use to sign up for this?"*
+> *"Did this API key expire? When?"*
+> *"I have 3 Gmail accounts — which one owns my AWS?"*
 
-Unlike traditional password managers, AccountVault focuses on:
+Students and developers typically juggle **5+ email identities** across cloud platforms, coding profiles, SaaS tools, and subscriptions. The result:
 
-| Feature | Description |
+- ⏳ Wasted hours on account recovery and credential hunting
+- 🔁 Reused passwords across platforms without realising it
+- 💸 Forgotten paid subscriptions silently draining money
+- 🔑 Expired API keys breaking projects at the worst time
+- 😵 Zero visibility into *which identity owns what*
+
+**Existing password managers solve storage — but not identity relationships.**
+
+---
+
+## ✅ The Solution
+
+**AccountVault** is not a password manager clone.
+
+It's an **identity relationship mapper with developer-first UX** — a local-first credential vault built around how developers and students actually think about their accounts.
+
+| Capability | What it solves |
 |---|---|
-| 📧 Email-Centric Mapping | Organize all accounts under their associated email identities |
-| 🔐 Local Encrypted Storage | AES-encrypted SQLite database — works fully offline |
-| ☁️ Optional Cloud Sync | Zero-knowledge Supabase sync — encrypted before upload |
-| 🔔 Smart Expiry Tracking | Alerts for API keys, passwords, and subscriptions |
-| 📱 Biometric Authentication | Fingerprint / Face ID unlock support |
+| 📧 Email-centric reverse lookup | Instantly see every service tied to an email |
+| 🤖 Automatic clipboard detection for API keys | Never manually paste and lose a key again |
+| 🔔 Smart expiry notifications | Get alerted before API keys, passwords, and subscriptions expire |
+| 📊 Analytics dashboard | Spot password reuse, subscription costs, and security risks at a glance |
+| ☁️ Optional cloud backup with auto-sync | Encrypted backup — available when you need it, invisible when you don't |
+
+---
+
+## 🎯 Who Is This For?
+
+- 🧑‍💻 **Developers** managing multiple cloud accounts, API keys, and SaaS subscriptions
+- 🎓 **Students** with separate academic, personal, and project email identities
+- 👥 **Anyone** who has ever said *"I forgot which email I used"*
 
 ---
 
@@ -40,29 +66,36 @@ Unlike traditional password managers, AccountVault focuses on:
 - Local SQLite database for complete offline access
 - Secure master password system with no plaintext persistence
 
+### 📧 Email-Centric Identity Mapping
+- View all services and accounts associated with each email identity
+- Reverse lookup — search a service, find which email owns it
+- Category-based grouping (Cloud, Dev Tools, Social, Subscriptions, etc.)
+
+### 🤖 Smart Detection
+- Automatic API key detection from clipboard using regex patterns
+- Prompts to assign detected keys to the right project instantly
+- Reduces manual entry and copy-paste errors
+
+### 📊 Analytics Dashboard
+- Password reuse monitor — highlights dangerous overlaps
+- Expiry timeline — upcoming expirations in one view
+- Subscription cost tracker — know what you're paying and where
+- Security health score *(upcoming)*
+
+### 🔔 Smart Notifications
+- Expiry alerts before API keys, tokens, or subscriptions lapse
+- Security reminders for accounts not accessed in a while
+- Renewal notifications with action shortcuts
+
 ### 👤 Authentication & Security
 - Supabase authentication (Email/Password)
 - Biometric unlock (Fingerprint / Face ID)
 - Secure session persistence using Expo SecureStore
 
-### 📧 Email-Centric Identity Mapping
-- View all accounts associated with a specific email
-- Reverse lookup for service ownership
-- Category-based grouping for organized access
-
-### 📊 Smart Analytics
-- Track total accounts and password reuse
-- Identify expiring credentials at a glance
-- Subscription cost tracking *(upcoming)*
-
-### 🔔 Smart Notifications
-- Expiry alerts and renewal reminders
-- Security health check notifications
-
 ### ☁️ Optional Cloud Sync
-- Supabase integration with zero-knowledge approach
-- Data encrypted client-side before upload
-- Offline-first — cloud sync is fully optional
+- Zero-knowledge approach — data encrypted client-side before upload
+- Auto-sync when connected; fully functional offline
+- Restore vault on new device in seconds
 
 ---
 
@@ -96,7 +129,8 @@ Optional Cloud Sync (Supabase — encrypted before upload)
 - ✅ Offline-first — fully functional without internet
 - ✅ Privacy-focused — no plaintext password storage ever
 - ✅ Zero-knowledge cloud sync — encrypted client-side
-- ✅ Secure session handling with biometric support
+- ✅ Identity-first architecture — emails are the root entity, not services
+- ✅ Developer UX — clipboard detection, API key tracking, project mapping
 
 ---
 
@@ -149,6 +183,7 @@ eas build -p android --profile preview
 | Secure Key Handling | Expo SecureStore used for master key |
 | Safe Cloud Integration | Supabase anon key only — no service role key exposure |
 | Biometric Lock | Fingerprint / Face ID authentication layer |
+| Zero-Knowledge Sync | Data encrypted on device before any cloud upload |
 
 ---
 
@@ -157,11 +192,11 @@ eas build -p android --profile preview
 ```
 account-vault/
 ├── src/
-│   ├── screens/        # App screens (Home, Vault, Settings, etc.)
+│   ├── screens/        # App screens (Home, Vault, Analytics, Settings)
 │   ├── components/     # Reusable UI components
-│   ├── utils/          # Encryption helpers, regex, formatters
+│   ├── utils/          # Encryption helpers, regex detectors, formatters
 │   ├── database/       # SQLite schema and queries
-│   ├── contexts/       # React Context providers
+│   ├── contexts/       # React Context providers (auth, vault, theme)
 │   └── types/          # TypeScript type definitions
 ├── assets/             # Icons and images
 ├── app.json            # Expo configuration
@@ -171,20 +206,34 @@ account-vault/
 
 ---
 
+## 🗺 Roadmap
+
+- [x] AES encrypted local storage
+- [x] Email-centric identity mapping
+- [x] Biometric authentication
+- [x] Supabase cloud sync
+- [x] API key clipboard detection
+- [ ] Security health score
+- [ ] Subscription cost analytics
+- [ ] Import from CSV / 1Password / Bitwarden
+- [ ] iOS build via EAS
+
+---
+
 ## 🎯 Key Highlights
 
+- ✅ Solves a real problem that password managers don't address
 - ✅ Production-ready signed Android APK via Expo EAS
 - ✅ Offline-first architecture — no internet required
 - ✅ AES-encrypted local database with biometric access
-- ✅ Clean modular codebase built with TypeScript
-- ✅ Supabase anon key only — secure cloud integration
+- ✅ Developer-focused UX — clipboard detection, API key tracking
+- ✅ Clean modular TypeScript codebase
 
 ---
 
 ## 👨‍💻 Author
 
 **A. Hari Nada Reddy**
-
 🔗 GitHub: [harinadareddy11](https://github.com/harinadareddy11)
 
 ---
@@ -193,6 +242,6 @@ account-vault/
 
 ⭐ If you found this project useful, consider starring the repository.
 
-*Built with security in mind.*
+*Built for developers, by a developer.*
 
 </div>
